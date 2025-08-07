@@ -26,7 +26,9 @@ export default {
 				foreground: 'hsl(var(--foreground))',
 				primary: {
 					DEFAULT: 'hsl(var(--primary))',
-					foreground: 'hsl(var(--primary-foreground))'
+					foreground: 'hsl(var(--primary-foreground))',
+					dark: 'hsl(var(--primary-dark))',
+					light: 'hsl(var(--primary-light))'
 				},
 				secondary: {
 					DEFAULT: 'hsl(var(--secondary))',
@@ -52,6 +54,13 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
+				jakarta: {
+					blue: 'hsl(var(--jakarta-blue))',
+					'blue-light': 'hsl(var(--jakarta-blue-light))',
+					'blue-dark': 'hsl(var(--jakarta-blue-dark))',
+					red: 'hsl(var(--jakarta-red))',
+					gold: 'hsl(var(--jakarta-gold))'
+				},
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',
 					foreground: 'hsl(var(--sidebar-foreground))',
@@ -62,6 +71,18 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				}
+			},
+			backgroundImage: {
+				'hero-gradient': 'var(--gradient-hero)',
+				'overlay-gradient': 'var(--gradient-overlay)'
+			},
+			boxShadow: {
+				'jakarta': 'var(--shadow-elegant)',
+				'jakarta-hero': 'var(--shadow-hero)'
+			},
+			transitionTimingFunction: {
+				'smooth': 'cubic-bezier(0.4, 0, 0.2, 1)',
+				'hero': 'cubic-bezier(0.4, 0, 0.2, 1)'
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
