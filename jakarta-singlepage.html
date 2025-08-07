@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jakarta - Jati Diri Indonesia, Megapolitan Dunia</title>
+    <meta name="description" content="Jakarta - Kehidupan perkotaan yang semarak dengan berbagai keragaman, dari warisan budaya, inovasi tanpa henti, hingga destinasi kelas dunia yang memikat.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --background: 222.2 84% 4.9%;
+            --foreground: 210 40% 98%;
+            --card: 222.2 84% 4.9%;
+            --card-foreground: 210 40% 98%;
+            --popover: 222.2 84% 4.9%;
+            --popover-foreground: 210 40% 98%;
+            --primary: 210 40% 98%;
+            --primary-foreground: 222.2 84% 4.9%;
+            --secondary: 217.2 32.6% 17.5%;
+            --secondary-foreground: 210 40% 98%;
+            --muted: 217.2 32.6% 17.5%;
+            --muted-foreground: 215 20.2% 65.1%;
+            --accent: 217.2 32.6% 17.5%;
+            --accent-foreground: 210 40% 98%;
+            --destructive: 0 62.8% 30.6%;
+            --destructive-foreground: 210 40% 98%;
+            --border: 217.2 32.6% 17.5%;
+            --input: 217.2 32.6% 17.5%;
+            --ring: 212.7 26.8% 83.9%;
+            --chart-1: 220 70% 50%;
+            --chart-2: 160 60% 45%;
+            --chart-3: 30 80% 55%;
+            --chart-4: 280 65% 60%;
+            --chart-5: 340 75% 55%;
+            --radius: 0.5rem;
+            
+            /* Jakarta specific colors */
+            --primary-dark: 210 40% 85%;
+            --hero-gradient: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-dark)));
+            --jakarta-shadow: 0 10px 30px -10px hsl(var(--primary) / 0.3);
+            --smooth-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            border-color: hsl(var(--border));
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: hsl(var(--background));
+            color: hsl(var(--foreground));
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .smooth-transition {
+            transition: var(--smooth-transition);
+        }
+
+        .hero-transition {
+            transition: all 0.6s ease-out;
+        }
+
+        .jakarta-shadow {
+            box-shadow: var(--jakarta-shadow);
+        }
+
+        .hero-overlay {
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6));
+        }
+
+        /* Navigation Styles */
+        .nav-container {
+            position: relative;
+            z-index: 50;
+        }
+
+        .top-level-nav {
+            display: flex;
+            gap: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-button {
+            padding: 16px 24px;
+            background: transparent;
+            border: none;
+            color: #374151;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            flex: 1;
+            text-align: center;
+            border-right: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-button:last-child {
+            border-right: none;
+        }
+
+        .nav-button:hover,
+        .nav-button.active {
+            background: linear-gradient(135deg, #3B82F6, #1D4ED8);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .nav-columns {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+            margin-top: 8px;
+            overflow: hidden;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+        }
+
+        .nav-columns.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .nav-columns .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+        }
+
+        .nav-column {
+            padding: 24px;
+            border-right: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-column:last-child {
+            border-right: none;
+        }
+
+        .nav-column h3 {
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #1F2937;
+            font-size: 16px;
+        }
+
+        .nav-column ul {
+            list-style: none;
+        }
+
+        .nav-column li {
+            margin-bottom: 8px;
+        }
+
+        .nav-column a {
+            color: #6B7280;
+            text-decoration: none;
+            transition: color 0.2s ease;
+            font-size: 14px;
+        }
+
+        .nav-column a:hover {
+            color: #3B82F6;
+        }
+
+        /* Mobile styles */
+        @media (max-width: 768px) {
+            .nav-columns .grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-column {
+                border-right: none;
+                border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            }
+            
+            .nav-column:last-child {
+                border-bottom: none;
+            }
+            
+            .top-level-nav {
+                flex-direction: column;
+            }
+            
+            .nav-button {
+                border-right: none;
+                border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            }
+            
+            .nav-button:last-child {
+                border-bottom: none;
+            }
+        }
+
+        /* Utility classes */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 16px;
+        }
+
+        .text-center { text-align: center; }
+        .text-white { color: white; }
+        .text-lg { font-size: 1.125rem; }
+        .text-xl { font-size: 1.25rem; }
+        .text-2xl { font-size: 1.5rem; }
+        .text-3xl { font-size: 1.875rem; }
+        .text-4xl { font-size: 2.25rem; }
+        .text-6xl { font-size: 3.75rem; }
+        .font-bold { font-weight: 700; }
+        .font-semibold { font-weight: 600; }
+        .mb-4 { margin-bottom: 1rem; }
+        .mb-6 { margin-bottom: 1.5rem; }
+        .mb-8 { margin-bottom: 2rem; }
+        .mt-8 { margin-top: 2rem; }
+        .py-4 { padding-top: 1rem; padding-bottom: 1rem; }
+        .py-8 { padding-top: 2rem; padding-bottom: 2rem; }
+        .py-16 { padding-top: 4rem; padding-bottom: 4rem; }
+        .px-4 { padding-left: 1rem; padding-right: 1rem; }
+        .px-8 { padding-left: 2rem; padding-right: 2rem; }
+        .rounded-lg { border-radius: 0.5rem; }
+        .shadow-lg { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); }
+
+        /* Component specific styles */
+        .btn-primary {
+            background: hsl(var(--primary));
+            color: hsl(var(--primary-foreground));
+            padding: 1rem 2rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: var(--smooth-transition);
+            box-shadow: var(--jakarta-shadow);
+        }
+
+        .btn-primary:hover {
+            background: hsl(var(--primary-dark));
+            transform: scale(1.05);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: var(--smooth-transition);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .card {
+            background: hsl(var(--card));
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: var(--smooth-transition);
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        .grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .grid-cols-2 { grid-template-columns: repeat(2, 1fr); }
+        .grid-cols-3 { grid-template-columns: repeat(3, 1fr); }
+        .grid-cols-4 { grid-template-columns: repeat(4, 1fr); }
+
+        @media (max-width: 768px) {
+            .grid-cols-2,
+            .grid-cols-3,
+            .grid-cols-4 {
+                grid-template-columns: 1fr;
+            }
+            
+            .text-4xl { font-size: 2rem; }
+            .text-6xl { font-size: 2.5rem; }
+        }
+
+        /* Service cards specific styling */
+        .service-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 1rem;
+            padding: 2rem;
+            text-align: center;
+            color: white;
+            transition: var(--smooth-transition);
+            cursor: pointer;
+        }
+
+        .service-card:hover {
+            transform: scale(1.05);
+        }
+
+        .service-card i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Calendar styling */
+        .calendar {
+            background: white;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 0.5rem;
+        }
+
+        .calendar-day {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: var(--smooth-transition);
+        }
+
+        .calendar-day:hover {
+            background: #f3f4f6;
+        }
+
+        .calendar-day.today {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .calendar-day.event {
+            background: #fef3c7;
+            color: #92400e;
+            font-weight: 600;
+        }
+
+        /* News section */
+        .news-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .news-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .news-card {
+            background: white;
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            transition: var(--smooth-transition);
+        }
+
+        .news-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .news-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .news-content {
+            padding: 1.5rem;
+        }
+
+        .news-category {
+            background: #3b82f6;
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        /* Footer */
+        footer {
+            background: #1f2937;
+            color: white;
+            padding: 3rem 0 1rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .footer-section h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a {
+            color: #d1d5db;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            background: #374151;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--smooth-transition);
+        }
+
+        .social-links a:hover {
+            background: #3b82f6;
+            transform: scale(1.1);
+        }
+
+        /* Animations */
+        @keyframes bounce {
+            0%, 20%, 53%, 80%, 100% {
+                transform: translate3d(0,0,0);
+            }
+            40%, 43% {
+                transform: translate3d(0, -30px, 0);
+            }
+            70% {
+                transform: translate3d(0, -15px, 0);
+            }
+            90% {
+                transform: translate3d(0, -4px, 0);
+            }
+        }
+
+        .animate-bounce {
+            animation: bounce 1s infinite;
+        }
+
+        /* Hidden class for mobile menu */
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-hidden {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="nav-container py-4" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+        <div class="container">
+            <div class="flex items-center justify-between mb-8">
+                <div class="flex items-center space-x-4">
+                    <div class="w-12 h-12 bg-white rounded-lg flex items-center justify-center">
+                        <i class="fas fa-city text-blue-600 text-xl"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-2xl font-bold text-white">Jakarta</h1>
+                        <p class="text-blue-100 text-sm">Portal Resmi Pemerintah</p>
+                    </div>
+                </div>
+                <button id="mobile-menu-btn" class="mobile-hidden text-white">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+
+            <!-- Navigation -->
+            <nav class="top-level-nav" id="main-nav">
+                <button class="nav-button" data-level="pemerintahan">Pemerintahan</button>
+                <button class="nav-button" data-level="pelayanan">Pelayanan Publik</button>
+                <button class="nav-button" data-level="informasi">Informasi</button>
+                <button class="nav-button" data-level="partisipasi">Partisipasi</button>
+            </nav>
+
+            <!-- Navigation Dropdown -->
+            <div class="nav-columns" id="nav-dropdown">
+                <div class="grid">
+                    <div class="nav-column">
+                        <h3>Struktur Pemerintahan</h3>
+                        <ul>
+                            <li><a href="#">Gubernur DKI Jakarta</a></li>
+                            <li><a href="#">Wakil Gubernur</a></li>
+                            <li><a href="#">Sekretariat Daerah</a></li>
+                            <li><a href="#">Dinas Pemerintahan</a></li>
+                        </ul>
+                    </div>
+                    <div class="nav-column">
+                        <h3>Program Kerja</h3>
+                        <ul>
+                            <li><a href="#">Rencana Strategis</a></li>
+                            <li><a href="#">Program Prioritas</a></li>
+                            <li><a href="#">Laporan Kinerja</a></li>
+                            <li><a href="#">Evaluasi Program</a></li>
+                        </ul>
+                    </div>
+                    <div class="nav-column">
+                        <h3>Transparansi</h3>
+                        <ul>
+                            <li><a href="#">APBD</a></li>
+                            <li><a href="#">Laporan Keuangan</a></li>
+                            <li><a href="#">Tender Proyek</a></li>
+                            <li><a href="#">Data Terbuka</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center justify-center overflow-hidden" style="background-image: url('src/assets/jakarta-hero.jpg'); background-size: cover; background-position: center;">
+        <div class="absolute inset-0 hero-overlay"></div>
+        
+        <div class="relative z-10 text-center text-white px-4 container">
+            <h1 class="text-4xl md:text-6xl font-bold mb-6 hero-transition">
+                Jakarta Jati Diri Indonesia, Megapolitan Dunia
+            </h1>
+            <p class="text-lg md:text-xl mb-8 leading-relaxed" style="color: rgba(255,255,255,0.9);">
+                Kehidupan perkotaan yang semarak dengan berbagai keragaman, dari warisan budaya, inovasi 
+                tanpa henti, hingga destinasi kelas dunia yang memikat. Selamat datang!
+            </p>
+            
+            <div style="display: flex; flex-direction: column; gap: 1rem; align-items: center;">
+                <a href="#services" class="btn-primary">
+                    <i class="fas fa-play" style="margin-right: 0.5rem;"></i>
+                    Jelajahi Jakarta
+                </a>
+                <a href="#news" class="btn-secondary">
+                    <i class="fas fa-info-circle" style="margin-right: 0.5rem;"></i>
+                    Informasi Terkini
+                </a>
+            </div>
+        </div>
+
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10">
+            <div class="animate-bounce">
+                <i class="fas fa-chevron-down text-white text-2xl"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-16" style="background: linear-gradient(135deg, #f0f2f5 0%, #e8ecef 100%);">
+        <div class="container">
+            <h2 class="text-3xl font-bold text-center mb-8 text-gray-800">Layanan</h2>
+            <div class="grid grid-cols-4 gap-6">
+                <div class="service-card" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                    <i class="fas fa-id-card"></i>
+                    <h3 class="font-semibold">Administrasi Kependudukan</h3>
+                </div>
+                <div class="service-card" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                    <i class="fas fa-briefcase"></i>
+                    <h3 class="font-semibold">Perizinan Usaha</h3>
+                </div>
+                <div class="service-card" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                    <i class="fas fa-graduation-cap"></i>
+                    <h3 class="font-semibold">Pendidikan</h3>
+                </div>
+                <div class="service-card" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);">
+                    <i class="fas fa-heartbeat"></i>
+                    <h3 class="font-semibold">Kesehatan</h3>
+                </div>
+                <div class="service-card" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">
+                    <i class="fas fa-home"></i>
+                    <h3 class="font-semibold">Perumahan</h3>
+                </div>
+                <div class="service-card" style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);">
+                    <i class="fas fa-bus"></i>
+                    <h3 class="font-semibold">Transportasi</h3>
+                </div>
+                <div class="service-card" style="background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3 class="font-semibold">Keamanan</h3>
+                </div>
+                <div class="service-card" style="background: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%);">
+                    <i class="fas fa-users"></i>
+                    <h3 class="font-semibold">Sosial</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Data Info Section -->
+    <section class="py-16 bg-white">
+        <div class="container">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold mb-4 text-gray-800">Data dan Informasi Jakarta</h2>
+                <p class="text-lg text-gray-600">Akses data terbuka dan aplikasi mobile untuk kemudahan layanan</p>
+            </div>
+            
+            <div class="grid grid-cols-2 gap-8">
+                <div class="card text-center">
+                    <div class="mb-6">
+                        <i class="fas fa-mobile-alt text-5xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4 text-gray-800">Aplikasi Mobile</h3>
+                    <p class="text-gray-600 mb-6">Download aplikasi resmi Jakarta untuk akses layanan yang lebih mudah dan cepat di genggaman Anda.</p>
+                    <a href="#" class="btn-primary">Download Sekarang</a>
+                </div>
+                
+                <div class="card text-center">
+                    <div class="mb-6">
+                        <i class="fas fa-database text-5xl text-green-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4 text-gray-800">Open Data</h3>
+                    <p class="text-gray-600 mb-6">Akses data terbuka Jakarta untuk penelitian, analisis, dan pengembangan aplikasi yang bermanfaat.</p>
+                    <a href="#" class="btn-primary" style="background: #10b981;">Jelajahi Data</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- News Section -->
+    <section id="news" class="py-16" style="background: #f8fafc;">
+        <div class="container">
+            <h2 class="text-3xl font-bold text-center mb-8 text-gray-800">Berita Terkini</h2>
+            
+            <div class="news-grid">
+                <div>
+                    <!-- Featured News -->
+                    <div class="news-card mb-6">
+                        <img src="https://via.placeholder.com/600x300" alt="Featured News" style="height: 300px;">
+                        <div class="news-content">
+                            <span class="news-category">TERBARU</span>
+                            <h3 class="text-xl font-bold mt-2 mb-2 text-gray-800">Jakarta Implementasikan Smart City untuk Pelayanan Publik</h3>
+                            <p class="text-gray-600 text-sm mb-2">15 Januari 2024</p>
+                            <p class="text-gray-700">Pemerintah Provinsi DKI Jakarta terus mengembangkan konsep smart city untuk meningkatkan kualitas pelayanan publik kepada warga...</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Regular News -->
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="news-card">
+                            <img src="https://via.placeholder.com/300x200" alt="News" style="height: 150px;">
+                            <div class="news-content">
+                                <span class="news-category" style="background: #f59e0b;">EKONOMI</span>
+                                <h4 class="font-semibold mt-2 mb-1 text-gray-800">Program UMKM Jakarta Meningkat 25%</h4>
+                                <p class="text-gray-600 text-sm">14 Januari 2024</p>
+                            </div>
+                        </div>
+                        
+                        <div class="news-card">
+                            <img src="https://via.placeholder.com/300x200" alt="News" style="height: 150px;">
+                            <div class="news-content">
+                                <span class="news-category" style="background: #10b981;">LINGKUNGAN</span>
+                                <h4 class="font-semibold mt-2 mb-1 text-gray-800">Kualitas Udara Jakarta Membaik</h4>
+                                <p class="text-gray-600 text-sm">13 Januari 2024</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Sidebar -->
+                <div>
+                    <div class="card mb-6">
+                        <h3 class="font-semibold mb-4 text-gray-800">Layanan Populer</h3>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="text-blue-600 hover:underline">Kartu Tanda Penduduk</a></li>
+                            <li><a href="#" class="text-blue-600 hover:underline">Surat Izin Mengemudi</a></li>
+                            <li><a href="#" class="text-blue-600 hover:underline">Akta Kelahiran</a></li>
+                            <li><a href="#" class="text-blue-600 hover:underline">BPJS Kesehatan</a></li>
+                            <li><a href="#" class="text-blue-600 hover:underline">Izin Usaha</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="card" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+                        <h3 class="font-semibold mb-4">Butuh Bantuan?</h3>
+                        <p class="mb-4">Tim customer service kami siap membantu Anda 24/7</p>
+                        <a href="#" class="btn-secondary" style="background: white; color: #667eea;">Hubungi Kami</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Events Section -->
+    <section class="py-16 bg-white">
+        <div class="container">
+            <h2 class="text-3xl font-bold text-center mb-8 text-gray-800">Kalender Acara</h2>
+            
+            <div class="grid grid-cols-2 gap-8">
+                <!-- Calendar -->
+                <div class="calendar">
+                    <div class="calendar-header">
+                        <button class="text-gray-600 hover:text-gray-800">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <h3 class="font-semibold text-gray-800">Januari 2024</h3>
+                        <button class="text-gray-600 hover:text-gray-800">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="calendar-grid mb-4">
+                        <div class="text-center text-sm font-medium text-gray-500 py-2">Min</div>
+                        <div class="text-center text-sm font-medium text-gray-500 py-2">Sen</div>
+                        <div class="text-center text-sm font-medium text-gray-500 py-2">Sel</div>
+                        <div class="text-center text-sm font-medium text-gray-500 py-2">Rab</div>
+                        <div class="text-center text-sm font-medium text-gray-500 py-2">Kam</div>
+                        <div class="text-center text-sm font-medium text-gray-500 py-2">Jum</div>
+                        <div class="text-center text-sm font-medium text-gray-500 py-2">Sab</div>
+                        
+                        <!-- Calendar days -->
+                        <div class="calendar-day">31</div>
+                        <div class="calendar-day">1</div>
+                        <div class="calendar-day">2</div>
+                        <div class="calendar-day">3</div>
+                        <div class="calendar-day">4</div>
+                        <div class="calendar-day event">5</div>
+                        <div class="calendar-day">6</div>
+                        <div class="calendar-day">7</div>
+                        <div class="calendar-day">8</div>
+                        <div class="calendar-day">9</div>
+                        <div class="calendar-day">10</div>
+                        <div class="calendar-day">11</div>
+                        <div class="calendar-day">12</div>
+                        <div class="calendar-day">13</div>
+                        <div class="calendar-day">14</div>
+                        <div class="calendar-day today">15</div>
+                        <div class="calendar-day">16</div>
+                        <div class="calendar-day">17</div>
+                        <div class="calendar-day">18</div>
+                        <div class="calendar-day">19</div>
+                        <div class="calendar-day event">20</div>
+                        <div class="calendar-day">21</div>
+                        <div class="calendar-day">22</div>
+                        <div class="calendar-day">23</div>
+                        <div class="calendar-day">24</div>
+                        <div class="calendar-day">25</div>
+                        <div class="calendar-day">26</div>
+                        <div class="calendar-day">27</div>
+                        <div class="calendar-day">28</div>
+                        <div class="calendar-day">29</div>
+                        <div class="calendar-day">30</div>
+                        <div class="calendar-day">31</div>
+                    </div>
+                    
+                    <!-- Event Previews -->
+                    <div class="space-y-3">
+                        <div class="flex items-center space-x-3 p-3 bg-orange-50 rounded-lg">
+                            <div class="w-3 h-3 bg-orange-500 rounded-full"></div>
+                            <div>
+                                <h4 class="font-medium text-gray-800">Jakarta Fair</h4>
+                                <p class="text-sm text-gray-600">5 Januari 2024</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-3 p-3 bg-blue-50 rounded-lg">
+                            <div class="w-3 h-3 bg-blue-500 rounded-full"></div>
+                            <div>
+                                <h4 class="font-medium text-gray-800">Festival Budaya</h4>
+                                <p class="text-sm text-gray-600">20 Januari 2024</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Featured Event -->
+                <div class="card" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+                    <div style="background: rgba(255,255,255,0.2); padding: 0.5rem 1rem; border-radius: 0.5rem; display: inline-block; margin-bottom: 1rem;">
+                        <span class="text-sm font-bold">FULL LINE UP</span>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-2">Bigu Festival 2024</h3>
+                    <p class="mb-4 opacity-90">20-22 Januari 2024 • Monas, Jakarta Pusat</p>
+                    
+                    <div class="space-y-2 mb-6">
+                        <div class="flex items-center space-x-2">
+                            <div class="w-2 h-2 bg-white rounded-full"></div>
+                            <span>NOAH</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <div class="w-2 h-2 bg-white rounded-full"></div>
+                            <span>Raisa</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <div class="w-2 h-2 bg-white rounded-full"></div>
+                            <span>Tulus</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <div class="w-2 h-2 bg-white rounded-full"></div>
+                            <span>Isyana Sarasvati</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <div class="w-2 h-2 bg-white rounded-full"></div>
+                            <span>Dan 20+ artis lainnya</span>
+                        </div>
+                    </div>
+                    
+                    <p class="mb-6 opacity-90">Festival musik terbesar Jakarta dengan menampilkan artis-artis terbaik Indonesia. Nikmati pengalaman musik yang tak terlupakan di jantung ibu kota.</p>
+                    
+                    <a href="#" class="btn-secondary">Selengkapnya...</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid mb-8">
+                <!-- Partner Logos -->
+                <div class="footer-section">
+                    <h3>Mitra Kami</h3>
+                    <div class="grid grid-cols-3 gap-4">
+                        <div class="text-center">
+                            <i class="fas fa-university text-2xl mb-2"></i>
+                            <p class="text-sm">Kemendagri</p>
+                        </div>
+                        <div class="text-center">
+                            <i class="fas fa-building text-2xl mb-2"></i>
+                            <p class="text-sm">BPS</p>
+                        </div>
+                        <div class="text-center">
+                            <i class="fas fa-globe text-2xl mb-2"></i>
+                            <p class="text-sm">UNDP</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Contact Info -->
+                <div class="footer-section">
+                    <h3>Kontak</h3>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt mr-2"></i>Balai Kota DKI Jakarta</li>
+                        <li><i class="fas fa-phone mr-2"></i>Call Center 112</li>
+                        <li><i class="fas fa-envelope mr-2"></i>info@jakarta.go.id</li>
+                        <li><i class="fas fa-globe mr-2"></i>jakarta.go.id</li>
+                    </ul>
+                </div>
+                
+                <!-- Social Media -->
+                <div class="footer-section">
+                    <h3>Media Sosial</h3>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <!-- Statistics -->
+                <div class="footer-section">
+                    <h3>Statistik Pengunjung</h3>
+                    <ul>
+                        <li>Hari ini: 1,234</li>
+                        <li>Bulan ini: 45,678</li>
+                        <li>Total: 2,345,678</li>
+                        <li>Online: 89</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Copyright -->
+            <div class="text-center pt-8 border-t border-gray-600">
+                <p>&copy; 2024 Pemerintah Provinsi DKI Jakarta. Hak Cipta Dilindungi Undang-Undang.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Navigation functionality
+        const navButtons = document.querySelectorAll('.nav-button');
+        const navDropdown = document.getElementById('nav-dropdown');
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mainNav = document.getElementById('main-nav');
+
+        let activeButton = null;
+
+        navButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const level = this.dataset.level;
+                
+                // Toggle active state
+                if (activeButton === this) {
+                    // Close if clicking same button
+                    this.classList.remove('active');
+                    navDropdown.classList.remove('show');
+                    activeButton = null;
+                } else {
+                    // Remove active from all buttons
+                    navButtons.forEach(btn => btn.classList.remove('active'));
+                    // Add active to clicked button
+                    this.classList.add('active');
+                    navDropdown.classList.add('show');
+                    activeButton = this;
+                }
+            });
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!event.target.closest('.nav-container')) {
+                navButtons.forEach(btn => btn.classList.remove('active'));
+                navDropdown.classList.remove('show');
+                activeButton = null;
+            }
+        });
+
+        // Mobile menu toggle
+        if (mobileMenuBtn) {
+            mobileMenuBtn.addEventListener('click', function() {
+                mainNav.classList.toggle('hidden');
+            });
+        }
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
